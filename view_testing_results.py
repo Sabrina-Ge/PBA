@@ -44,7 +44,7 @@ else:
 	c = color_by_fate(B)
 	fig,axs = plt.subplots(1,3)
 	axs[0].scatter(xx,yy,c=V,edgecolor='',s=60)
-	axs[0].set_title('Potnetial (V)')
+	axs[0].set_title('Potential (V)')
 	axs[1].scatter(xx,yy,c=c,edgecolor='',s=60)
 	axs[1].set_title('Fate probabilities (B.npy)')
 	axs[2].scatter(xx,yy,c=tt,edgecolor='',s=60, cmap=plt.cm.jet)
@@ -69,7 +69,7 @@ else:
 	c = color_by_fate(B)
 	fig,axs = plt.subplots(1,2)
 	axs[0].scatter(xx,yy,c=V,edgecolor='',s=20)
-	axs[0].set_title('Potnetial (V.npy)')
+	axs[0].set_title('Potential (V.npy)')
 	axs[1].scatter(xx,yy,c=c,edgecolor='k',s=20, linewidth=.1)
 	axs[1].set_title('Fate probabilities (B.npy)')
 	for i in range(2):
