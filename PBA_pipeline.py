@@ -49,11 +49,14 @@ def main(argv):
 	#====================================================================================#
 	
 	for path in [path_to_expression_matrix, path_to_edge_list, path_to_R, path_to_S]:
-		if path != None and not os.path.exists(path): print 'Error: The file '+path+' does not exist'; sys.exit(2)
+		if path is not None and not os.path.exists(path): print 'Error: The file '+path+' does not exist'; sys.exit(2)
+
+	if path_to_R is None:
+		print 'Error: You must input a path to sources and sinks vector (-R)'; sys.exit(2)
 	
-	if path_to_expression_matrix == None and path_to_edge_list == None: 
+	if path_to_expression_matrix is None and path_to_edge_list is None: 
 		print 'Error: You must input either an expression matrix (-X) or knn edge list (-e)'; sys.exit(2)
-	elif path_to_edge_list == None:
+	elif path_to_edge_list is None:
 		print '\n## Running compute_knn_graph.py'
 		os.system('python compute_knn_graph.py -E '+repr(minimum_mean_expression)+' -V '+repr(minimum_CV)+' -k '+repr(k)+' -p '+repr(p)+' -X '+ path_to_expression_matrix + ' -N '+repr(normalize))
 		path_to_edge_list = '/'.join(path_to_expression_matrix.split('/')[:-1] + ['edge_list.csv'])
@@ -64,8 +67,9 @@ def main(argv):
 	print '\n## Running compute_potential.py'
 	os.system('python compute_potential.py -R '+path_to_R)
 	
-	print '\n## Running compute_fate_probabilities.py'
-	os.system('python compute_fate_probabilities.py  -S '+path_to_S+' -e '+path_to_edge_list+' -D '+repr(D))
+	if path_to_S is not None:	
+		print '\n## Running compute_fate_probabilities.py'
+		os.system('python compute_fate_probabilities.py  -S '+path_to_S+' -e '+path_to_edge_list+' -D '+repr(D))
 	
 	if   '.csv' in path_to_R: R = np.loadtxt(path_to_R, delimiter=',')
 	elif '.npy' in path_to_R: R = np.load(path_to_R)
